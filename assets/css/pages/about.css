@@ -1,0 +1,98 @@
+/* About page: page hero, numbers, how we work, geography, partners, clients, projects, closing CTA.
+   Everything here is scoped to .ab-* classes; shared selectors live in style.css. */
+
+/* ---------- Page hero: shared template, the photo framed on the right ---------- */
+.ab-hero__media { position: relative; }
+.ab-hero__frame > img { position: absolute; inset: 0; }
+.ab-hero__tag { display: inline-flex; align-items: center; gap: .5em; z-index: 3; }
+.ab-hero__tag .ic { color: var(--lime); }
+
+/* ---------- Numbers: a hairline 2×2 grid, no scene ---------- */
+.ab-nums { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: var(--line-dark-2); border: 1px solid var(--line-dark-2); border-radius: var(--radius-xl); overflow: hidden; }
+.ab-nums__cell { background: rgba(5, 16, 5, .55); padding: clamp(20px, 2.6vw, 40px) clamp(16px, 2.2vw, 32px); min-height: 100%; }
+.ab-nums__cell > div { display: grid; align-content: start; gap: 12px; }
+.ab-nums__cell .num { color: #fff; }
+.ab-nums__cell p:not(.num) { color: var(--on-dark-2); font-size: var(--fs-sm); max-width: 26ch; }
+@media (min-width: 900px) { .ab-nums__cell p:not(.num) { font-size: 1rem; line-height: 1.45; max-width: 24ch; } }
+.ab-nums__cell { container-type: inline-size; }
+.ab-nums__cell .num { font-size: min(var(--fs-num), 20cqi); }
+
+/* ---------- How we work: head row, then a list with a sticky photo on the right ---------- */
+.ab-how__head { display: grid; gap: 16px 48px; margin-bottom: clamp(32px, 4vw, 56px); }
+.ab-how { display: grid; gap: clamp(32px, 5vw, 80px); align-items: start; }
+.ab-how__list { display: grid; border-top: 1px solid var(--rule); min-width: 0; }
+.ab-how__item { display: grid; gap: 14px 32px; padding: clamp(20px, 2.4vw, 32px) 0; border-bottom: 1px solid var(--rule); }
+.ab-how__item > div { display: grid; gap: 10px; }
+/* the label sits on the heading's first line: a tile and a word */
+.ab-how__label { display: inline-flex; align-items: center; align-self: start; gap: .75rem; font-size: .9375rem; font-weight: 700; line-height: 1.2; color: var(--fg); }
+.ab-how__label .tile { width: 36px; height: 36px; border-radius: 10px; }
+.ab-how__label .tile .ic { width: 19px; height: 19px; }
+.ab-how__item h3 { font-family: var(--font-display); font-weight: 500; font-size: var(--fs-h4d); letter-spacing: -.02em; line-height: 1.1; }
+.ab-how__item > div > p { color: var(--text); max-width: 52ch; }
+.ab-how__media .frame { max-width: 440px; }
+@media (min-width: 700px) {
+  .ab-how__item { grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); }
+  .ab-how__item > div { padding-top: .3em; }
+}
+@media (min-width: 900px) {
+  .ab-how__head { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: end; }
+  .ab-how { grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); }
+  .ab-how__media { position: sticky; top: calc(var(--header-h) + 32px); }
+}
+
+/* ---------- Geography: two location cards and a country row, no map ---------- */
+.ab-geo__body { display: grid; gap: clamp(28px, 3.5vw, 48px); }
+.ab-geo__locs { display: grid; gap: clamp(16px, 2vw, 24px); }
+.ab-geo__loc { display: grid; gap: 8px; align-content: start; padding: clamp(20px, 2.4vw, 32px); }
+.ab-geo__loc > .tile { margin-bottom: 12px; }
+.ab-geo__loc h3 { font-size: clamp(1.2rem, 1rem + .6vw, 1.5rem); }
+.ab-geo__where { font-weight: 700; font-size: var(--fs-sm); color: var(--green-ink); }
+.ab-geo__loc > p:last-child { color: var(--text); max-width: 40ch; }
+.ab-geo__caption { font-size: var(--fs-label); font-weight: 700; color: var(--fg-2); margin-bottom: 12px; }
+.ab-geo__countries { display: grid; border-top: 1px solid var(--rule-2); }
+.ab-geo__countries li { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--rule); font-family: var(--font-display); font-weight: 500; font-size: clamp(1.1rem, .9rem + 1vw, 1.5rem); letter-spacing: -.02em; line-height: 1.1; color: var(--ink); }
+.ab-geo__countries small { font-family: var(--font); font-weight: 600; font-size: var(--fs-sm); letter-spacing: 0; color: var(--muted); text-align: right; }
+.ab-geo__countries li:first-child small { color: var(--accent-text); }
+@media (min-width: 700px) {
+  .ab-geo__locs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ab-geo__countries { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 24px; border-top: 0; }
+  .ab-geo__countries li { flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; padding: 18px 0 0; border-bottom: 0; border-top: 1px solid var(--rule-2); }
+  .ab-geo__countries small { text-align: left; }
+}
+
+/* ---------- Partners: a list with factory photos ---------- */
+.ab-plants { display: grid; border-top: 1px solid var(--rule); }
+.ab-plant { display: grid; grid-template-columns: 72px minmax(0, 1fr); grid-template-rows: auto auto; gap: 4px 18px; align-items: start; padding: clamp(16px, 2vw, 24px) 0; border-bottom: 1px solid var(--rule); }
+.ab-plant__photo { grid-row: 1 / span 2; aspect-ratio: 1; border-radius: 12px; overflow: hidden; background: var(--paper-3); }
+/* the source photos carry the presentation's slanted numbered corner in their bottom third — show the top two thirds only */
+.ab-plant__photo img { width: 100%; height: 150%; object-fit: cover; object-position: 50% 0; }
+.ab-plant h3 { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.1rem, .95rem + .5vw, 1.375rem); letter-spacing: -.02em; line-height: 1.15; }
+.ab-plant p { color: var(--text); max-width: 56ch; }
+@media (min-width: 700px) {
+  .ab-plant { grid-template-columns: 168px minmax(0, 1fr); gap: 8px 32px; align-content: center; }
+  .ab-plant__photo { aspect-ratio: 4 / 3; border-radius: 14px; align-self: center; }
+  .ab-plant h3 { align-self: end; }
+}
+
+/* ---------- Clients: the same light band as the partners, divided by a rule ---------- */
+.ab-clients { display: flow-root; padding-bottom: clamp(56px, 7vw, 112px); }
+.ab-clients__rule { margin-block: clamp(48px, 6vw, 96px); }
+.ab-clients__head { display: grid; gap: 16px 48px; margin-bottom: clamp(32px, 4vw, 56px); }
+@media (min-width: 900px) { .ab-clients__head { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: end; } }
+.ab-clients .logos .clients__more { display: grid; place-items: center; text-align: center; padding: 6% 8%; background: linear-gradient(rgba(68, 224, 44, .12), rgba(68, 224, 44, .12)), #fff; }
+.ab-clients .clients__more .num { font-size: 1.5rem; color: var(--accent-text); }
+.ab-clients .clients__more p:not(.num) { font-size: .8125rem; font-weight: 600; line-height: 1.3; color: var(--muted); max-width: 14ch; margin-top: 2px; }
+
+/* ---------- Projects: a head row and three named sites ---------- */
+.ab-projects__head { display: grid; gap: 16px 48px; margin-bottom: clamp(28px, 3.5vw, 48px); }
+.ab-projects__list { display: grid; border-top: 1px solid var(--rule-2); }
+.ab-projects__list li { display: flex; align-items: flex-start; gap: 14px; padding: 18px 0; border-bottom: 1px solid var(--rule-2); font-family: var(--font-display); font-weight: 500; font-size: var(--fs-h4d); letter-spacing: -.02em; line-height: 1.15; color: var(--ink); }
+.ab-projects__list .ic { width: 22px; height: 22px; margin-top: .1em; color: var(--lime); stroke-width: 1.6; }
+@media (min-width: 900px) {
+  .ab-projects__head { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: end; }
+  .ab-projects__list { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 24px; border-top: 0; }
+  .ab-projects__list li { flex-direction: column; gap: 14px; padding: 20px 0 0; border-bottom: 0; border-top: 1px solid var(--rule-2); }
+}
+
+/* ---------- Decorative photos below desktop: wide, not a full screen each ---------- */
+@media (max-width: 899px) { .ab-how__media .frame { max-width: none; aspect-ratio: 16 / 10; } }

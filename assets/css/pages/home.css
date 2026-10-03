@@ -1,0 +1,176 @@
+/* Home page: hero, product trio, warehouse scene, advantages, quality, clients, calculator, request */
+
+/* ---------- Hero: centred over a darkened close-up of the tubes, glass cards below ---------- */
+.hero { position: relative; isolation: isolate; overflow: hidden; margin-top: calc(var(--header-h) * -1); padding-top: calc(var(--header-h) + clamp(56px, 8vw, 120px)); padding-bottom: clamp(16px, 2.5vw, 32px); }
+.hero__bg { position: absolute; inset: 0; z-index: -1; overflow: hidden; }
+/* the still frame and the video share one framing and one grade, so the fade from one to the other is invisible */
+.hero__bg :is(img, video) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 30% 45%; filter: brightness(.78) saturate(1.08) contrast(1.08); }
+.hero__video { opacity: 0; transition: opacity 1.2s ease; }
+.hero.is-playing .hero__video { opacity: 1; }
+/* pause / play for the background video, under the header on the right */
+.hero__vbtn { position: absolute; z-index: 3; top: calc(var(--header-h) + 16px); right: var(--gutter); display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; border: 1px solid rgba(255, 255, 255, .18); border-radius: 50%; background: rgba(6, 10, 6, .45); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); color: #fff; transition: border-color var(--t), background var(--t); }
+.hero__vbtn .ic { width: 18px; height: 18px; }
+.hero__vbtn .ic--play { display: none; }
+.hero__vbtn[data-state="paused"] .ic--play { display: block; }
+.hero__vbtn[data-state="paused"] .ic--pause { display: none; }
+.hero__vbtn[hidden] { display: none; }
+@media (hover: hover) { .hero__vbtn:hover { border-color: var(--lime); background: rgba(6, 10, 6, .7); } }
+.hero__bg::before { content: ""; position: absolute; inset: 0; z-index: 1; background:
+  radial-gradient(55% 42% at 50% 40%, rgba(7, 11, 7, .62) 0%, rgba(7, 11, 7, .4) 65%, rgba(7, 11, 7, .55) 100%),
+  linear-gradient(180deg, rgba(7, 11, 7, .5) 0%, rgba(7, 11, 7, .05) 25%, rgba(7, 11, 7, .5) 60%, #070b07 88%); }
+/* only a breath of the brand green over the molten metal: a stronger lime mixes with the orange into a muddy olive */
+.hero__bg::after { content: ""; position: absolute; inset: 0; z-index: 2; background: radial-gradient(40% 30% at 50% 40%, rgba(68, 224, 44, .06), transparent 72%); }
+
+.hero__text { max-width: 980px; margin-inline: auto; display: grid; justify-items: center; text-align: center; }
+.hero__text h1 { margin-top: clamp(20px, 2.4vw, 28px); }
+.hero__text .lead { margin: clamp(20px, 2.4vw, 28px) auto 0; max-width: 58ch; color: #d9e4d6; }
+.hero__text .actions { justify-content: center; margin-top: clamp(28px, 3vw, 40px); }
+/* badge: a lime chip for the fact, plain muted text for the rest — two clearly separate parts */
+.hero__badge { gap: 12px; padding: 5px 18px 5px 5px; }
+.hero__chip { display: inline-flex; align-items: center; gap: 8px; padding: 5px 13px 5px 10px; border: 1px solid rgba(68, 224, 44, .45); border-radius: var(--pill); background: rgba(68, 224, 44, .16); color: #fff; font-weight: 700; }
+.hero__badge-more { color: #b5c4b1; font-weight: 500; }
+@media (max-width: 559px) { .hero__badge { padding: 5px; } .hero__badge-more { display: none; } }
+.hero__dot { width: 7px; height: 7px; border-radius: 50%; background: var(--lime); box-shadow: 0 0 10px var(--lime); }
+.hero__checks { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 28px; margin-top: 26px; font-size: .9375rem; font-weight: 600; color: var(--text); }
+.hero__checks li { display: inline-flex; align-items: center; gap: .55em; }
+.hero__checks .ic { width: 22px; height: 22px; padding: 4px; border: 1px solid rgba(68, 224, 44, .5); border-radius: 50%; color: var(--lime); stroke-width: 2.4; }
+
+.hero__cards { display: grid; gap: 18px; margin-top: clamp(56px, 8vw, 110px); }
+.hcard { padding: clamp(20px, 2vw, 26px); gap: 14px; background: linear-gradient(180deg, rgba(20, 28, 20, .72) 0%, rgba(10, 15, 10, .82) 100%); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.hcard__head { display: flex; align-items: center; gap: 14px; }
+.hcard__title { font-family: var(--font); font-weight: 700; font-size: 1.125rem; line-height: 1.25; letter-spacing: 0; color: #fff; }
+.hcard p { font-size: .9375rem; color: var(--text); max-width: 38ch; }
+.hcard__vis { position: relative; display: block; width: 100%; height: 170px; margin-top: auto; padding-top: 8px; overflow: visible; }
+.hcard__vis .art { position: absolute; inset: 0; min-height: 0; }
+/* sprite icons inside the drawings are line art, like the tiles */
+.hcard__vis use { fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; }
+@media (min-width: 900px) { .hero__cards { grid-template-columns: repeat(3, minmax(0, 1fr)); } .hcard { min-height: 360px; } }
+/* tablet: text left, drawing right — the stack is half as tall */
+@media (min-width: 600px) and (max-width: 899px) {
+  .hcard { display: grid; grid-template-columns: minmax(0, 1fr) 210px; column-gap: 28px; align-items: center; }
+  .hcard__head, .hcard p { grid-column: 1; }
+  .hcard__vis { grid-column: 2; grid-row: 1 / span 2; height: 140px; margin: 0; padding: 0; }
+}
+@media (max-width: 599px) { .hcard__vis { height: 132px; } }
+
+/* card 1: metal flows from the plants into the warehouse — one short run of pulses, then rest */
+.flow__src rect { fill: rgba(255, 255, 255, .05); stroke: rgba(255, 255, 255, .16); }
+.flow__src use { color: #cfdacb; stroke-width: 1.6; }
+.flow__lines path, .flow__out { fill: none; stroke: rgba(255, 255, 255, .3); stroke-width: 1.3; stroke-dasharray: 2 5; stroke-linecap: round; }
+.flow__pulses path { fill: none; stroke: var(--lime); stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: .12 1.2; stroke-dashoffset: .12; opacity: 0; filter: drop-shadow(0 0 4px var(--lime)); }
+.flow__node rect { fill: rgba(68, 224, 44, .1); stroke: var(--lime); stroke-width: 1.4; }
+.flow__node use { color: var(--lime); stroke-width: 1.7; }
+.flow__node { opacity: .5; filter: drop-shadow(0 0 0 rgba(68, 224, 44, 0)); transition: opacity .6s ease, filter .8s ease; }
+.is-in .flow__pulses path { animation: flowPulse 1.6s var(--ease-io) both; animation-delay: calc(1.3s + var(--o, 0) * .16s); animation-iteration-count: 2; }
+.is-in .flow__node { opacity: 1; filter: drop-shadow(0 0 14px rgba(68, 224, 44, .65)); transition-delay: 2.2s; }
+@keyframes flowPulse { 0% { stroke-dashoffset: .12; opacity: 1; } 92% { opacity: 1; } 100% { stroke-dashoffset: -1; opacity: 0; } }
+.no-js .flow__node, html:not(.js) .flow__node { opacity: 1; }
+
+/* card 3: rings around the warehouse, dots for the countries */
+.geo__ring { fill: none; stroke: var(--lime); stroke-width: 1.2; }
+.geo__ring--1 { stroke-opacity: .7; }
+.geo__ring--2 { stroke-opacity: .4; }
+.geo__ring--3 { stroke-opacity: .22; }
+.geo__dot { fill: var(--lime); opacity: 0; transition: opacity .5s ease; transition-delay: calc(1.9s + var(--o, 0) * .2s); filter: drop-shadow(0 0 6px var(--lime)); }
+.is-in .geo__dot, html:not(.js) .geo__dot { opacity: 1; }
+.geo__center { fill: rgba(68, 224, 44, .1); stroke: var(--lime); stroke-width: 1.4; filter: drop-shadow(0 0 12px rgba(68, 224, 44, .55)); }
+.geo__pin { color: var(--lime); stroke-width: 1.7; }
+
+/* trust row */
+.hero__trust { margin-top: clamp(72px, 9vw, 128px); text-align: center; }
+/* the label sits between two hairlines that fade out to the sides */
+.hero__trust p { display: flex; align-items: center; gap: clamp(16px, 3vw, 32px); font-size: clamp(1rem, .92rem + .4vw, 1.25rem); font-weight: 700; line-height: 1.35; color: #f1f7ee; }
+.hero__trust p::before, .hero__trust p::after { content: ""; flex: 1; height: 1px; min-width: 24px; }
+.hero__trust p::before { background: linear-gradient(90deg, transparent, rgba(68, 224, 44, .55)); }
+.hero__trust p::after { background: linear-gradient(90deg, rgba(68, 224, 44, .55), transparent); }
+.hero__trust ul { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 28px clamp(32px, 5vw, 72px); margin-top: clamp(28px, 3vw, 40px); padding: clamp(24px, 3vw, 36px) clamp(20px, 4vw, 56px); border: 1px solid var(--glass-border); border-radius: var(--radius-xl); background: var(--glass); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05); }
+/* logos are optically balanced: heavy wordmarks a little smaller, two-line marks a little larger */
+.hero__trust img { height: calc(34px * var(--s, 1)); width: auto; max-width: 168px; object-fit: contain; filter: grayscale(1) brightness(0) invert(1); opacity: .82; transition: opacity .5s var(--ease); }
+@media (hover: hover) { .hero__trust li:hover img { opacity: 1; } }
+@media (max-width: 599px) { .hero__trust img { height: calc(27px * var(--s, 1)); max-width: 120px; } .hero__trust ul { gap: 22px 28px; } .hero__trust p { display: block; } .hero__trust p::before, .hero__trust p::after { display: none; } }
+@media (prefers-reduced-motion: reduce) { .flow__pulses { display: none; } .flow__node { opacity: 1; } .geo__dot { opacity: 1; } }
+/* phones: the checks form one left-aligned column, centred as a block */
+@media (max-width: 559px) { .hero__text .actions { width: min(100%, 340px); } .hero__checks { display: grid; justify-content: center; justify-items: start; gap: 10px; } }
+
+/* ---------- Products ---------- */
+.prod { display: grid; gap: clamp(16px, 2vw, 28px); }
+.prod__card .art-wrap { position: relative; aspect-ratio: 4 / 3; overflow: hidden; }
+.prod__card .art { position: absolute; inset: 0; }
+.prod__card--tall .art-wrap { aspect-ratio: 4 / 3; }
+.prod__more { display: grid; gap: 12px; }
+.prod__chip { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border: 1px solid var(--glass-border); border-radius: var(--radius-lg); background: var(--glass); text-decoration: none; color: #fff; font-weight: 700; transition: border-color .7s var(--ease), transform .7s var(--ease), box-shadow .9s var(--ease); }
+.prod__thumb { width: 76px; height: 57px; flex: none; border-radius: 10px; border: 1px solid var(--glass-border); }
+.prod__stock { width: 22px; height: 22px; flex: none; margin-left: auto; padding: 4px; border: 1px solid rgba(68, 224, 44, .45); border-radius: 50%; color: var(--lime); stroke-width: 2.4; }
+.prod__chip small { display: block; font-weight: 600; font-size: var(--fs-sm); color: var(--muted); }
+.prod__chip .ic--arrow { width: 18px; height: 18px; margin-left: auto; color: var(--lime-700); }
+@media (hover: hover) { a.prod__chip:hover { border-color: rgba(68, 224, 44, .22); transform: translateX(3px); box-shadow: 0 16px 40px -28px rgba(68, 224, 44, .22); } }
+@media (min-width: 760px) {
+  .prod { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); grid-template-rows: auto auto; }
+  .prod__card--tall { grid-row: span 2; }
+  .prod__card--tall .art-wrap { aspect-ratio: auto; flex: 1; min-height: 420px; }
+  .prod__card--tall .card__body { flex: 0 0 auto; }
+  .prod__card .card__body { min-height: 15rem; }
+  .prod__more { grid-column: 1 / -1; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* ---------- Warehouse scene ---------- */
+.scene__head { padding-bottom: clamp(32px, 4vw, 56px); }
+@media (min-width: 900px) { .scene__head, .clients__head { align-items: end; } }
+/* without the scroll scene the photo is framed like every other image, and the stats clear the next cut */
+html:not(.rich-motion) .scene__media { width: calc(100% - var(--gutter) * 2); max-width: var(--container); margin-inline: auto; }
+html:not(.rich-motion) .scene__stats { padding-bottom: calc(clamp(56px, 9vw, 96px) + var(--cut)); }
+.scene__track { position: relative; }
+.scene__stage { position: relative; }
+.scene__media { position: relative; aspect-ratio: 16 / 9; border-radius: var(--radius-xl); overflow: hidden; background: var(--steel-800); }
+.scene__media img { width: 100%; height: 100%; object-fit: cover; }
+.scene__media img { filter: brightness(.82) saturate(.9); }
+.scene__media::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(4, 9, 4, .2) 0%, transparent 30%, rgba(4, 14, 5, .92) 100%); pointer-events: none; }
+.scene__stats { position: relative; margin-top: clamp(28px, 4vw, 48px); }
+.scene__stat .num { color: #fff; }
+.scene__stat .num__unit { color: var(--lime); }
+/* rich motion only: the image grows from a window to full bleed while you scroll past; stats land on it */
+.rich-motion .scene__track { min-height: 200vh; }
+.rich-motion .scene__stage { position: sticky; top: 0; height: 100vh; overflow: hidden; display: grid; align-content: end; }
+/* the window opens over the first ~60% of the scroll, so the stats land on the photo, not half on the band */
+.rich-motion .scene__media { --q: min(1, calc(var(--p, 0) * 1.6)); position: absolute; inset: 0; aspect-ratio: auto; border-radius: 0; clip-path: inset(calc((1 - var(--q)) * 12vh) calc((1 - var(--q)) * 14vw) calc((1 - var(--q)) * 10vh) calc((1 - var(--q)) * 14vw) round calc((1 - var(--q)) * 14px)); }
+.rich-motion .scene__media.reveal--mask::after { display: none; }
+.rich-motion .scene__media img { transform: scale(calc(1.18 - var(--p, 0) * .18)); transform-origin: 50% 40%; }
+.rich-motion .scene__stats { margin: 0; padding-bottom: calc(clamp(40px, 6vh, 72px) + var(--cut)); }
+.rich-motion .scene__stat { --k: clamp(0, (var(--p, 0) - var(--at, .5)) * 5, 1); opacity: var(--k); transform: translateY(calc((1 - var(--k)) * 26px)); }
+.rich-motion .scene__stat { border-top-color: rgba(255, 255, 255, .35); }
+
+/* ---------- Advantages ---------- */
+.why__photo { margin-top: clamp(24px, 3vw, 40px); max-width: 420px; }
+@media (min-width: 900px) { .why__photo { aspect-ratio: 1 / 1; } }
+@media (max-width: 899px) { .why__photo { aspect-ratio: 16 / 10; max-width: none; } }
+
+/* ---------- Quality ---------- */
+.gost { display: grid; gap: 0; border-top: 1px solid var(--rule); }
+.gost__row { display: grid; gap: 8px 24px; padding: 20px 0; border-bottom: 1px solid var(--rule); }
+.gost__name { display: flex; align-items: center; gap: 12px; font-weight: 700; color: #fff; }
+.gost__name .ic { width: 26px; height: 26px; color: var(--lime); stroke-width: 1.5; }
+.gost__list { display: flex; flex-wrap: wrap; gap: 8px; }
+@media (min-width: 700px) { .gost__row { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: center; } }
+.quality__note { margin-top: clamp(24px, 3vw, 40px); gap: 18px; }
+.quality__note > div { flex: 1; min-width: 0; }
+.quality__note .actions { margin-top: 14px; }
+@media (min-width: 900px) {
+  .quality__note { align-items: center; }
+  .quality__note > div { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  .quality__note .actions { margin-top: 0; flex: none; }
+}
+
+/* ---------- Clients ---------- */
+.clients__head { margin-bottom: clamp(32px, 4vw, 56px); }
+.logos .clients__more { display: grid; place-items: center; text-align: center; padding: 6% 8%; background: rgba(68, 224, 44, .06); }
+.band--light .logos li.clients__more { background: linear-gradient(rgba(68, 224, 44, .12), rgba(68, 224, 44, .12)), #fff; }
+.clients__more .num { font-size: 1.5rem; color: var(--accent-text); }
+.clients__more p { font-size: .8125rem; font-weight: 600; line-height: 1.3; color: var(--muted); max-width: 14ch; margin-top: 2px; }
+.clients__foot { margin-top: clamp(24px, 3vw, 40px); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; align-items: center; }
+.clients__foot p { max-width: 60ch; color: var(--muted); }
+
+/* ---------- Calculator (shared component, see pages/calculator.css for the full page) ---------- */
+.calc-teaser .calc { margin-top: 0; }
+/* an odd last field takes the full row instead of leaving a hole */
+.calc-teaser .calc__form > .calc__field:last-child:nth-child(odd) { grid-column: 1 / -1; }
+@media (max-width: 599px) { .calc-teaser .tab { flex: 1 1 auto; white-space: nowrap; padding-inline: 8px; font-size: .8125rem; } }

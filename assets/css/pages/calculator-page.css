@@ -1,0 +1,47 @@
+/* Calculator page: page hero with type shortcuts, the full calculator, formulas, CTA band.
+   The calculator component itself is styled in pages/calculator.css (shared with the home teaser). */
+
+/* ---------- Hero: shortcuts to the three calculator tabs ---------- */
+.calcp-hero { padding-bottom: clamp(28px, 3.5vw, 56px); }
+.calcp-types { display: grid; gap: 10px; }
+.calcp-type { display: flex; align-items: center; gap: 14px; min-height: 76px; padding: 14px 18px 14px 14px; border: 1px solid var(--glass-border); border-radius: var(--radius-lg); background: var(--glass); text-decoration: none; color: var(--ink); font-weight: 700; font-size: 1rem; transition: border-color .7s var(--ease), box-shadow .9s var(--ease), transform .9s var(--ease); }
+.calcp-type > .ic:not(.ic--arrow) { width: 44px; height: 44px; padding: 9px; flex: none; border: 1px solid rgba(68, 224, 44, .35); border-radius: 12px; background: rgba(68, 224, 44, .08); color: var(--lime); stroke-width: 1.5; transition: background var(--t), color var(--t), border-color var(--t); }
+.calcp-type span { min-width: 0; }
+.calcp-type small { display: block; font-weight: 500; font-size: .8125rem; color: var(--muted); }
+.calcp-type .ic--arrow { width: 18px; height: 18px; margin-left: auto; color: var(--fg-3); transition: transform var(--t) var(--ease), color var(--t); }
+.calcp-type:focus-visible { border-radius: var(--radius-lg); }
+/* the shortcut of the open tab is marked, so the two controls read as one */
+.calcp-type[aria-current] { border-color: rgba(68, 224, 44, .45); }
+.calcp-type[aria-current] > .ic:not(.ic--arrow) { background: var(--lime); border-color: var(--lime); color: var(--on-lime); }
+@media (hover: hover) {
+  .calcp-type:hover { transform: translateY(-2px); border-color: rgba(68, 224, 44, .2); box-shadow: 0 20px 50px -34px rgba(68, 224, 44, .22); }
+  .calcp-type:hover .ic--arrow { transform: translateX(4px); color: var(--lime); }
+}
+@media (min-width: 600px) and (max-width: 899px) { .calcp-types { grid-template-columns: repeat(3, minmax(0, 1fr)); } .calcp-type { flex-direction: column; align-items: flex-start; } .calcp-type .ic--arrow { display: none; } }
+@media (min-width: 900px) { .calcp-types { width: 100%; max-width: 480px; justify-self: end; } }
+
+/* ---------- Calculator ---------- */
+.calcp-tool__head { display: grid; gap: 8px; justify-content: start; margin-bottom: clamp(16px, 2vw, 24px); padding-top: clamp(18px, 2vw, 28px); border-top: 1px solid var(--line); }
+.calcp-tool__head h2 { font-size: clamp(1.25rem, 1rem + 1vw, 1.75rem); }
+.calcp-tool__head p { max-width: 60ch; }
+.calcp-tool .calc__input { min-height: 60px; font-size: 1.25rem; }
+.calcp-tool .calc__art { max-height: 230px; }
+/* the tabs are a choice, not a progress bar: content-wide, with icons */
+@media (min-width: 600px) { .calcp-tool .calc__tabs { width: fit-content; max-width: 100%; } .calcp-tool .tab { flex: 0 0 auto; min-height: 48px; padding-inline: 20px 24px; } }
+@media (max-width: 599px) { .calcp-tool .tab { flex-direction: column; gap: 4px; min-height: 64px; padding: 8px 6px; white-space: normal; line-height: 1.2; } }
+/* the panel was in a fixed-height box; on desktop the result card and the fields share the height */
+@media (min-width: 900px) { .calcp-tool .calc--full .calc__form { grid-template-columns: repeat(3, minmax(0, 1fr)); } .calcp-tool .calc__in { padding: clamp(16px, 2vw, 24px); border: 1px solid var(--rule); border-radius: var(--radius-lg); background: rgba(255, 255, 255, .02); } }
+/* tablet: the form spans the width, the result card puts the drawing beside the figures */
+@media (min-width: 700px) and (max-width: 899px) {
+  .calcp-tool .calc__grid { grid-template-columns: 1fr; }
+  .calcp-tool .calc__out { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); align-items: center; }
+  .calcp-tool .calc__art { max-height: none; height: 100%; }
+  .calcp-tool .calc__send { grid-column: 1 / -1; }
+}
+
+/* ---------- Formulas (definition list on the light band) ---------- */
+.calcp-how .deflist__desc { max-width: none; display: grid; gap: 8px; }
+.calcp-formula { font-family: var(--font-display); font-weight: 500; font-size: clamp(.95rem, .8rem + .55vw, 1.3rem); letter-spacing: -.01em; line-height: 1.35; color: var(--ink); font-variant-numeric: tabular-nums; text-wrap: balance; }
+.calcp-formula__unit { font-family: var(--font); font-weight: 600; font-size: .8em; color: var(--green-ink); white-space: nowrap; }
+.calcp-legend { font-size: var(--fs-sm); color: var(--muted); max-width: 56ch; }
+.calcp-note { margin-top: clamp(24px, 3vw, 40px); align-items: center; }

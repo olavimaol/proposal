@@ -1,0 +1,62 @@
+/* Contacts page: typographic hero with the single company number and a contact sheet, map with a warehouse photo, request band.
+   Everything here is scoped to .chero / .csheet / .cmap / .creq; shared selectors live in style.css. */
+
+/* ---------- Hero: the shared page-hero template; the number is the picture ---------- */
+.chero__text { max-width: 640px; }
+.chero__direct { display: grid; gap: 12px; justify-items: start; }
+.chero__label { font-size: var(--fs-label); font-weight: 700; line-height: 1; color: var(--fg-2); }
+.chero__line { display: flex; align-items: center; gap: 12px; }
+.chero__phone { display: inline-flex; align-items: center; min-height: 48px; font-family: var(--font-display); font-weight: 500; font-size: clamp(1.75rem, 1.2rem + 1.5vw, 2.4rem); letter-spacing: -.02em; line-height: 1.05; color: var(--ink); text-decoration: underline 2px var(--lime); text-underline-offset: .22em; white-space: nowrap; font-variant-numeric: tabular-nums; transition: color var(--t), text-decoration-color var(--t); }
+.chero__hours { display: inline-flex; align-items: center; gap: .6em; color: var(--text); }
+.chero__hours .ic { color: var(--lime); }
+.chero__actions { margin-top: 10px; }
+.chero__call { display: none; }
+@media (hover: hover) { .chero__phone:hover { color: var(--lime); text-decoration-color: currentColor; } }
+@media (max-width: 699px) { .chero__call { display: inline-flex; } .chero__req { display: none; } .chero .chero__actions { width: 100%; flex-direction: row; align-items: center; } .chero .chero__actions .btn { flex: 1 1 0; width: auto; } }
+@media (min-width: 900px) { .chero__direct { justify-self: end; } }
+
+/* the contact sheet: hairlines and labels, one row component for every value */
+.csheet { display: grid; gap: clamp(28px, 3vw, 40px); margin: clamp(40px, 5vw, 72px) 0 0; }
+.csheet__col { padding-top: clamp(18px, 2vw, 28px); border-top: 1px solid var(--line); }
+.csheet__term { font-size: var(--fs-label); font-weight: 700; line-height: 1; color: var(--fg-2); }
+.csheet__desc { display: grid; gap: 8px; margin: 14px 0 0; }
+.csheet__list { display: grid; gap: 2px; }
+.csheet__line { display: flex; align-items: center; gap: 10px; }
+.csheet__row { display: inline-flex; align-items: center; gap: .65em; min-height: 44px; font-size: 1.0625rem; font-weight: 700; color: var(--ink); text-decoration: none; font-variant-numeric: tabular-nums; transition: color var(--t); }
+.csheet__row .ic { color: var(--lime); }
+.csheet__val { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: 0 .5em; }
+.csheet__row small { font-size: var(--fs-sm); font-weight: 600; color: var(--muted); }
+.csheet__row--addr { align-items: flex-start; padding-block: 10px; line-height: 1.45; }
+.csheet__row--addr .ic { margin-top: .15em; }
+.csheet .link { justify-self: start; min-height: 44px; }
+@media (hover: hover) { a.csheet__row:hover { color: var(--lime); } }
+@media (min-width: 600px) and (max-width: 899px) {
+  .csheet { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 32px; }
+  .csheet__col:nth-child(3) { grid-column: 1 / -1; }
+}
+@media (min-width: 900px) {
+  .csheet { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(24px, 4vw, 64px); border-top: 1px solid var(--line); }
+  .csheet__col { border-top: 0; }
+}
+
+/* ---------- Map ---------- */
+.cmap__head { margin-bottom: clamp(32px, 4vw, 56px); }
+.cmap__head .lead + .actions { margin-top: 1.25rem; }
+.cmap__media { display: grid; gap: clamp(16px, 2vw, 28px); }
+.cmap__head .link { min-height: 44px; }
+/* the map gets the same edge and shadow as the cards on the light band */
+.cmap__frame { position: relative; aspect-ratio: 1; border: 1px solid var(--line); border-radius: var(--radius-xl); overflow: hidden; isolation: isolate; background: var(--paper-3); box-shadow: 0 1px 0 rgba(255, 255, 255, .8) inset, 0 18px 40px -32px rgba(10, 40, 10, .35); }
+.cmap__photo { box-shadow: 0 18px 40px -32px rgba(10, 40, 10, .35); }
+.cmap__frame iframe { position: absolute; inset: 0; display: block; width: 100%; height: 100%; border: 0; }
+.cmap__side { position: relative; aspect-ratio: 3 / 2; }
+.cmap__side .cmap__photo { position: absolute; inset: 0; }
+@media (min-width: 600px) and (max-width: 899px) {
+  .cmap__media { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); }
+  .cmap__frame { aspect-ratio: 4 / 5; }
+  .cmap__side { aspect-ratio: auto; }
+}
+@media (min-width: 900px) {
+  .cmap__media { grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); }
+  .cmap__frame { aspect-ratio: 16 / 10; }
+  .cmap__side { aspect-ratio: auto; }
+}
